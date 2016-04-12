@@ -1,0 +1,11 @@
+{
+    "LICENSE": "2dc66ced90e10c7cb2d53d1f87a0d464",
+    "package.json": "1e5a49782c32078a1172e2e8fd409cd2",
+    "README.md": "cb6bf40851d3365e9052326ebf25e103",
+    "src/ajax.js": "577fb0f1e97fe8d60344172186642d0b",
+    "src/hooks.js": "69db7543b1fb9b8e293dea63021bb6e8",
+    "src/config.js": "cf330ae1a74fd787e27eeb2f804d7b85",
+    "src/Requester.js": "a379e217ee38fe24a6cc7c4f6bf9c098",
+    "src/STATUS.js": "b80ae9cc5998f17d2ec9cd76c4ffedcf",
+    "src/main.js": "1179c548a8bf013af7a781f1c599fba5"
+}

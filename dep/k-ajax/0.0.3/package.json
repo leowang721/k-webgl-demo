@@ -1,0 +1,18 @@
+{
+    "name": "k-ajax",
+    "version": "0.0.3",
+    "author": {
+      "name": "Leo Wang",
+      "email": "leowang721@gmail.com",
+      "url": "http://leowang721.github.io"
+    },
+    "contributors": [],
+    "dependencies": {
+        "k-core": "^0.0.4",
+        "lodash": "^4.6.1"
+    },
+    "main": "main",
+    "description": "A simple ajax lib using es6 grammar & syntax.",
+    "homepage": "https://github.com/leowang721/k-ajax",
+    "repository": "git://github.com/leowang721/k-ajax"
+}

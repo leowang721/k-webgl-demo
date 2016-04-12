@@ -1,0 +1,38 @@
+// global scope
+.global-normalize();
+
+.page-reset {
+    a:link,
+    a:visited {
+        text-decoration: none;
+        color: @my-link-color;
+    }
+    a:hover,
+    a:active {
+        text-decoration: underline;
+        color: @my-link-color;
+    }
+
+    html,
+    body {
+        font-size: 12px;
+        color: @my-text-color;
+    }
+}
+
+// reset page
+.page-reset();
+::shadow {
+    .page-reset();
+}
+
+// page structure
+#wrapper {
+    padding: 10px;
+}
+
+#header,
+#main,
+#footer {
+    margin: 10px 0;
+}

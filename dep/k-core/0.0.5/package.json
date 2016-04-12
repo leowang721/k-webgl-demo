@@ -1,0 +1,20 @@
+{
+    "name": "k-core",
+    "version": "0.0.5",
+    "license": "MIT",
+    "author": {
+      "name": "Leo Wang",
+      "email": "leowang721@gmail.com",
+      "url": "http://leowang721.github.io"
+    },
+    "contributors": [],
+    "dependencies": {
+      "mini-event": "^1.0.2",
+      "lodash": "^4.6.1",
+      "promise": ">=1.0.2"
+    },
+    "main": "main",
+    "description": "k-core, basic libs & dependencies using es6 grammar & syntax.",
+    "homepage": "https://github.com/leowang721/k-core",
+    "repository": "git://github.com/leowang721/k-core"
+}

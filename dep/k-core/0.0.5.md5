@@ -1,0 +1,11 @@
+{
+    "LICENSE": "7ec86dc7125b85b85cb21254fc9a8106",
+    "package.json": "42b3b5d6b6946c9af6b21fa907614045",
+    "README.md": "086996582fe292f699543e15d4da673d",
+    "src/eventBus.js": "e1175743b1cf906e495a01d92ff35f7b",
+    "src/LifeStage.js": "6c3ad66f561241174d00a3f555143d07",
+    "src/main.js": "5954aadadebf3d625ef32b8930a14888",
+    "src/Promise.js": "bb2121722fabd8c468042a2b3096f8d8",
+    "src/setImmediate.js": "da08aa59744d6696a4a45b6551fd003a",
+    "src/util.js": "440c0df81991ddb1efa591cdea8bf855"
+}

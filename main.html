@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>i18n for console</title>
+    <link rel="stylesheet" href="src/resource/css/common.less">
+    <link rel="stylesheet" href="src/page/style.less">
+    <link rel="stylesheet" href="src/component/style.less">
+    <script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/2-1-4/esl.js"></script>
+    <script>
+    require.config({
+        'baseUrl': 'src',
+        'paths': { 'css': 'common/esl/css' },
+        'packages': [
+            {
+                'name': 'custom-element-shim',
+                'location': '../dep/custom-element-shim/0.0.2/src',
+                'main': 'document-register-element'
+            },
+            {
+                'name': 'etpl',
+                'location': '../dep/etpl/3.1.0/src',
+                'main': 'main'
+            },
+            {
+                'name': 'k-component',
+                'location': '../dep/k-component/0.0.1-alpha.12/src',
+                'main': 'main'
+            },
+            {
+                'name': 'lodash',
+                'location': '../dep/lodash/4.6.1',
+                'main': 'lodash'
+            },
+            {
+                'name': 'mini-event',
+                'location': '../dep/mini-event/1.0.2/src',
+                'main': 'main'
+            },
+            {
+                'name': 'promise',
+                'location': '../dep/promise/1.0.2/src',
+                'main': 'main'
+            },
+            {
+                'name': 'eoo',
+                'location': '../dep/eoo/0.1.4/src',
+                'main': 'main'
+            },
+            {
+                'name': 'k-component-element',
+                'location': '../dep/k-component-element/0.0.1-alpha.4/src',
+                'main': 'main'
+            },
+            {
+                'name': 'babel-runtime',
+                'location': '../dep/babel-runtime/0.0.0/src'
+            },
+            {
+                'name': 'er',
+                'location': '../dep/er/3.1.1/src',
+                'main': 'main'
+            },
+            {
+                'name': 'est',
+                'location': '../dep/est/1.2.1/src',
+                'main': 'lib/index'
+            },
+            {
+                'name': 'k-ajax',
+                'location': '../dep/k-ajax/0.0.3/src',
+                'main': 'main'
+            },
+            {
+                'name': 'k-core',
+                'location': '../dep/k-core/0.0.5/src',
+                'main': 'main'
+            }
+        ]
+    });
+    </script>
+</head>
+
+<body>
+    <section id="wrapper">
+        <header id="header">
+            <h1>百度开放云 - 国际化</h1>
+        </header>
+        <section id="main"></section>
+        <footer id="footer"></footer>
+    </section>
+    <script>
+        require(['main']);
+    </script>
+</body>
+</html>

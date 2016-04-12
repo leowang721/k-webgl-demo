@@ -1,0 +1,40 @@
+@import "../resource/css/variable.less";
+my-navigator {
+    display: block;
+    .shadow {
+        ul {
+            margin: 0;
+            padding: 0;
+            display: table;  /* 调教webkit*/
+            word-spacing: -1em;
+            border-left: @my-normal-border;
+        }
+        li {
+            word-spacing: 0;
+            display: inline-block;
+            margin: 0;
+            padding: 5px 10px;
+            border: @my-normal-border;
+            border-left: none;
+        }
+        .activated {
+            background-color: lightgray;
+            a {
+                background: none;
+                color: @my-text-color;
+                cursor: default;
+                &:hover,
+                &:active {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+    // 由于ff 等下直接连写会导致不识别，所以先分开写了
+    &::shadow {
+        .shadow();
+    }
+    fake-shadow-root {
+        .shadow();
+    }
+}
