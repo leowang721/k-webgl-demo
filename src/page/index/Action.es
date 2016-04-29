@@ -18,8 +18,8 @@ class Action extends PageAction {
      *
      * @param {Object} context ER Action构造函数默认传入的环境信息
      */
-    constructor(context) {
-        super(arguments);
+    constructor() {
+        super();
         this.modelType = Model;
         this.viewType = View;
     }

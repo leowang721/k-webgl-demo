@@ -2,10 +2,11 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8">
-    <title>i18n for console</title>
+    <title>my site</title>
     <link rel="stylesheet" href="src/resource/css/common.less">
     <link rel="stylesheet" href="src/page/style.less">
     <link rel="stylesheet" href="src/component/style.less">
+    <link href="src/resource/img/favicon.ico" rel="icon" type="image/x-icon">
     <script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/2-1-4/esl.js"></script>
     <script>
     require.config({
@@ -75,6 +76,11 @@
                 'name': 'k-core',
                 'location': '../dep/k-core/0.0.5/src',
                 'main': 'main'
+            },
+            {
+                'name': 'k-webgl',
+                'location': '../dep/k-webgl/src',
+                'main': 'main'
             }
         ]
     });
@@ -84,7 +90,7 @@
 <body>
     <section id="wrapper">
         <header id="header">
-            <h1>百度开放云 - 国际化</h1>
+            <h1>Simple WebGL</h1>
         </header>
         <section id="main"></section>
         <footer id="footer"></footer>

@@ -1,1 +1,40 @@
+@import "../resource/css/variable.less";
 @import "./index/style.less";
+
+.content-main {
+    margin-top: 15px;
+}
+
+#module-pages {
+    li {
+        display: inline-block;
+        padding: 5px 10px;
+        border: @my-normal-border;
+        border-left: none;
+    }
+    .activated {
+        background-color: lightgray;
+        a {
+            background: none;
+            color: @my-text-color;
+            cursor: default;
+            &:hover,
+            &:active {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .shadow() {
+        ul {
+            border-left: @my-normal-border;
+        }
+    }
+    // 由于ff 等下直接连写会导致不识别，所以先分开写了
+    &::shadow {
+        .shadow();
+    }
+    fake-shadow-root {
+        .shadow();
+    }
+}

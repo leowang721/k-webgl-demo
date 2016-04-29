@@ -1,0 +1,23 @@
+@import "../resource/css/variable.less";
+page-navigator {
+    display: block;
+    li {
+        margin: 0;
+        font-size: @my-text-size;
+        list-style: none;
+    }
+    .shadow {
+        ul {
+            margin: 0;
+            padding: 0;
+            font-size: 0;
+        }
+    }
+    // 由于ff 等下直接连写会导致不识别，所以先分开写了
+    &::shadow {
+        .shadow();
+    }
+    fake-shadow-root {
+        .shadow();
+    }
+}

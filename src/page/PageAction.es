@@ -13,8 +13,8 @@ class Action extends ErAction {
      *
      * @constructor
      */
-    constructor(...args) {
-        super(args);
+    constructor() {
+        super();
     }
 
     /**

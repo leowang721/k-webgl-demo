@@ -4,7 +4,7 @@
  * @author Leo Wang(leowang721@gmail.com)
  */
 
-import u from 'lodash';
+import _ from 'lodash';
 import er from 'er';
 import erConfig from 'er/config';
 import erController from 'er/controller';
@@ -16,7 +16,7 @@ import actions from './action.conf';
 
 // default configuration, this part is for er
 let config = {
-    indexUrl: '/index',
+    indexURL: '/index',
     systemName: '我的站点',
     noAuthorityLocation: '/error/403',
     notFoundLocation: '/error/404'
@@ -24,7 +24,7 @@ let config = {
 Object.assign(erConfig, config);
 
 // 注册 er Actions
-erController.registerAction(u.flattenDeep(actions));
+erController.registerAction(_.flattenDeep(actions));
 
 er.start();
 

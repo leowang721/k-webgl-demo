@@ -11,7 +11,7 @@ let path = require('path');
 
 let api = require('./tool/server/handler-api');
 
-exports.port = 8848;
+exports.port = 8888;
 exports.directoryIndexes = true;
 exports.documentRoot = __dirname;
 exports.getLocations = function () {
@@ -40,7 +40,7 @@ exports.getLocations = function () {
 
     let fileProcessors = [
         {
-            location: /\.(html|tpl)($|\?)/,
+            location: /\.(html|tpl|png|jpg|gif|bmp)($|\?)/,
             handler: [
                 file()
             ]

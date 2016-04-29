@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-supervisor --harmony -w ../i18n-server ./tool/server/start.js
+supervisor --harmony -w "./tool/server,./mockup" ./tool/server/start.js

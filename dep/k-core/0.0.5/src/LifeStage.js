@@ -82,8 +82,8 @@ export default class LifeStage extends EventTarget {
         let determintToTriggerEvent = function (data) {
             let currentStage = handlers.current();
             if (data.from !== currentStage) {
-                me.emit('transfer', Object.assign({}, data, {to: handlers.current()}));
-                me.emit(currentStage.toLowerCase(), data);
+                me.fire('transfer', Object.assign({}, data, {to: handlers.current()}));
+                me.fire(currentStage.toLowerCase(), data);
                 if (me.host) {
                     let methodName = 'on' + currentStage.charAt(0).toUpperCase() + currentStage.substring(1);
                     if (typeof me.host[methodName] === 'function') {
