@@ -1,5 +1,5 @@
 /**
- * @file 三角形 - View
+ * @file matchman - View
  *
  * @author Leo Wang(leowang721@gmail.com)
  */
@@ -21,7 +21,7 @@ class View extends PageView {
     constructor() {
         super();
         // 指定模板
-        this.template = 'page-learning-3d';
+        this.template = 'page-learning-matchman';
     }
 
     enterDocument() {
@@ -30,10 +30,13 @@ class View extends PageView {
         $('#play').click((e) => {
             this.fire('play');
         });
+        $('#stop').click((e) => {
+            this.fire('stop');
+        });
 
         let changing = false;
         let pos = null;
-        $('#stage-3d').on('mousedown', (e) => {
+        $('#stage-matchman').on('mousedown', (e) => {
             changing = true;
             pos = {
                 x: e.clientX,
@@ -41,15 +44,15 @@ class View extends PageView {
             };
             this.fire('dragbegin');
         });
-        $('#stage-3d').on('mouseup', () => {
+        $('#stage-matchman').on('mouseup', () => {
             changing = false;
             this.fire('dragend');
         });
-        $('#stage-3d').on('mouseout', () => {
+        $('#stage-matchman').on('mouseout', () => {
             changing = false;
             this.fire('dragend');
         });
-        $('#stage-3d').on('mousemove', (e) => {
+        $('#stage-matchman').on('mousemove', (e) => {
             if (changing) {
                 this.fire('camerachange', {
                     dx: e.clientX - pos.x,

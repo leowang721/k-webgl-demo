@@ -11,7 +11,6 @@ import Renderer from 'k-webgl/Renderer';
 import Scene from 'k-webgl/Scene';
 import Coordinate from 'k-webgl/helper/Coordinate';
 import TextureCoord from 'k-webgl/helper/TextureCoord';
-import Vertex from 'k-webgl/element/Vertex';
 import Polygon from 'k-webgl/shape/Polygon';
 import Rgba from 'k-webgl/helper/Rgba';
 import Texture from 'k-webgl/Texture';
@@ -41,97 +40,76 @@ class Action extends PageAction {
      */
     initBehavior() {
         super.initBehavior();
-        let scene = new Scene();
+        let range = {
+            width: document.getElementById('transform-stage').offsetWidth,
+            height: document.getElementById('transform-stage').offsetHeight
+        };
+        let scene = new Scene({
+            width: range.width,
+            height: range.height,
+            depth: 100
+        });
 
         let renderer = new Renderer({
             domId: 'transform-stage'
         });
 
-        // 扔100个大小为10px随机位置、随机颜色的方块
-        let range = {
-            width: document.getElementById('transform-stage').offsetWidth,
-            height: document.getElementById('transform-stage').offsetHeight
-        };
         let imageRange = {
-            width: 1024,
-            height: 1024
+            width: 300,
+            height: 300
         }
 
-        let width = 1024 / 2;
-        let height = 1024 / 2;
+        let width = imageRange.width / 2;
+        let height = imageRange.height / 2;
 
-        let items = _.times(1, () => {
-            let pos = {
-                // x: Math.random() * range.width,
-                // y: Math.random() * range.height
-                x: range.width / 2 - width / 2,
-                // y: range.height / 2 - height / 2
-                y: 0
-            };
-            let pos1 = {x: pos.x + width, y: pos.y};
-            let pos2 = {x: pos.x + width, y: pos.y + height};
-            let pos3 = {x: pos.x, y: pos.y + height};
-            return new Polygon({
-                color: new Rgba(Math.random(), Math.random(), Math.random(), 1),
-                points: [
-                    Coordinate.transformFromScreen(pos, range),
-                    Coordinate.transformFromScreen(pos1, range),
-                    Coordinate.transformFromScreen(pos2, range),
-                    Coordinate.transformFromScreen(pos3, range)
-                ],
-                texture: new Texture({
-                    url: 'src/resource/texture/1.png',
-                    coords: [
-                        TextureCoord.transformFromImage([0, 0], imageRange),
-                        TextureCoord.transformFromImage([1024, 0], imageRange),
-                        TextureCoord.transformFromImage([1024, 1024], imageRange),
-                        TextureCoord.transformFromImage([0, 1024], imageRange)
-                    ]
-                })
-            });
+        let pos = [-width, -height, 0];
+        let pos1 = [width, -height, 0];
+        let pos2 = [width, height, 0];
+        let pos3 = [-width, height, 0];
+        let item = new Polygon({
+            color: new Rgba(Math.random(), Math.random(), Math.random(), 1),
+            vertices: [
+                pos, pos1, pos2, pos3
+            ],
+            texture: new Texture({
+                url: 'src/resource/texture/1.png',
+                coords: [
+                    TextureCoord.transformFromImage([0, 0], imageRange),
+                    TextureCoord.transformFromImage([1024, 0], imageRange),
+                    TextureCoord.transformFromImage([1024, 1024], imageRange),
+                    TextureCoord.transformFromImage([0, 1024], imageRange)
+                ]
+            })
         });
 
-        scene.add(items);
-
-        // 动画
-        let moving = renderer.animation.createMotion(0);
-        moving.animate(items[0])
-            .begin()
-            .then().spent(1000).moveBy({x: 100 / range.width / 2, y: -50 / range.height / 2, z: 0})
-            .then().spent(1000).rotate(360, [0, 0, 1])
-            .then().spent(1000).scale({x: 1.1, y: 1.1, z: 1.1})
-            .end();
-
+        scene.addShapes(item);
+        //
+        // // 动画
+        // let moving = renderer.animation.createMotion(0);
+        // moving.animate(items[0])
+        //     .begin()
+        //     .then().spent(1000).moveBy({x: 100 / range.width / 2, y: -50 / range.height / 2, z: 0})
+        //     .then().spent(1000).rotate(360, [0, 0, 1])
+        //     .then().spent(1000).scale({x: 1.1, y: 1.1, z: 1.1})
+        //     .end();
+        //
 
         renderer.render(scene).then(() => {
-            renderer.animation.play();
+            // renderer.animation.play();
         });
+
+        renderer.autoRefresh(true);
 
         this.view.on('translation', (e) => {
-            items.forEach(item => {
-                item.transform.translate(getRandom() / 2, getRandom() / 2, getRandom() / 2).apply();
-            });
-        });
-
-        this.view.on('rotation-axis', (e) => {
-            items.forEach(item => {
-                item.transform.rotate(Math.PI / 5, [0, 0, 1]).apply();
-            });
+            item.transform.translate(getRandom() * 20, getRandom() * 20, 0).apply();
         });
 
         this.view.on('rotation', (e) => {
-            items.forEach(item => {
-                item.transform.rotateSelf(Math.PI / 5, [0, 0, 1]).apply();
-            });
+            item.transform.rotate(Math.PI / 5, [0, 0, 1]).apply();
         });
 
         this.view.on('scaling', (e) => {
-            items.forEach(item => {
-                // item.transform.scale(_.times(2, () => {
-                //     return Math.random() * 3;
-                // }).concat(1)).apply();
-                item.transform.scale([1.1, 1.1, 1.1]).apply();
-            });
+            item.transform.scale([1.1, 1.1, 1.1]).apply();
         });
     }
 }

@@ -65,5 +65,29 @@ export default [
             name: '3d',
             id: 'page-learning-3d'
         }
+    },
+    {
+        path: '/learning/object',
+        type: 'page/learning/object/Action',
+        args: {
+            name: 'object',
+            id: 'page-learning-object'
+        }
+    },
+    {
+        path: '/learning/matchman',
+        type: 'page/learning/matchman/Action',
+        args: {
+            name: 'matchman',
+            id: 'page-learning-matchman'
+        }
+    },
+    {
+        path: '/learning/mmd',
+        type: 'page/learning/mmd/Action',
+        args: {
+            name: 'mmd',
+            id: 'page-learning-mmd'
+        }
     }
 ];

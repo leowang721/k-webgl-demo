@@ -10,7 +10,6 @@ import PageAction from '../../PageAction';
 import Renderer from 'k-webgl/Renderer';
 import Scene from 'k-webgl/Scene';
 import Coordinate from 'k-webgl/helper/Coordinate';
-import Vertex from 'k-webgl/element/Vertex';
 import Triangles from 'k-webgl/shape/Triangles';
 import Rgba from 'k-webgl/helper/Rgba';
 
@@ -39,25 +38,41 @@ class Action extends PageAction {
      */
     initBehavior() {
         super.initBehavior();
-        let scene = new Scene();
+
+        let range = {
+            width: document.getElementById('triangle-stage').offsetWidth,
+            height: document.getElementById('triangle-stage').offsetHeight
+        };
+
+        let scene = new Scene({
+            width: range.width,
+            height: range.height,
+            depth: 100
+        });
 
         let renderer = new Renderer({
             domId: 'triangle-stage'
         });
 
         let triangles = new Triangles({
-            mode: Triangles.MODE.STRIP,
-            color: new Rgba(Math.random(), Math.random(), Math.random(), 1)
+            mode: 'TRIANGLE_FAN',
+            color: new Rgba(Math.random(), Math.random(), Math.random(), 1),
+            vertices: [
+                [-50, -50, 0],
+                [50, -50, 0],
+                [0, 50, 0]
+            ]
         });
-        triangles.addTriangles({
-            c: new Coordinate(0, 0, 0)
-        });
-        scene.add(triangles);
+
+        scene.addShapes(triangles);
         renderer.render(scene);
 
         this.view.on('draw', (e) => {
-            triangles.addTriangles(e);
-            renderer.render(scene);
+            triangles.addVertices({
+                coord: e.pos,
+                color: new Rgba(Math.random(), Math.random(), Math.random(), 1)
+            });
+            renderer.repaint();
         });
     }
 }

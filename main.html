@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="src/page/style.less">
     <link rel="stylesheet" href="src/component/style.less">
     <link href="src/resource/img/favicon.ico" rel="icon" type="image/x-icon">
-    <script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/2-1-4/esl.js"></script>
+    <script src="dep/esl/2.1.4/esl.js"></script>
     <script>
     require.config({
         'baseUrl': 'src',
@@ -81,6 +81,11 @@
                 'name': 'k-webgl',
                 'location': '../dep/k-webgl/src',
                 'main': 'main'
+            },
+            {
+                'name': 'pmx',
+                'location': '../dep/pmx',
+                'main': 'pmx'
             }
         ]
     });

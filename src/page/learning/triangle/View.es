@@ -25,30 +25,16 @@ class View extends PageView {
     }
 
     enterDocument() {
-        let points = [];
         $('#triangle-stage').click((e) => {
             let rect = e.target.getBoundingClientRect();
-            let x = e.clientX - rect.left;
-            let y = e.clientY -rect.top;
-
-            let pos = Coordinate.transformFromScreen({x, y}, rect);
-            points.push(pos);
-            //
-            // if (points.length === 3) {
-            //     this.fire('draw', {
-            //         a: points[0],
-            //         b: points[1],
-            //         c: points[2],
-            //         color: new Rgba(Math.random(), Math.random(), Math.random(), 1)
-            //     });
-            //     points = [];
-            // }
+            let x = e.clientX - rect.left - rect.width / 2;
+            let y = -(e.clientY -rect.top - rect.height / 2);
 
             this.fire('draw', {
-                c: pos,
-                color: new Rgba(Math.random(), Math.random(), Math.random(), 1)
+                pos: [x, y, 0]
             });
 
+            e.preventDefault();
         });
     }
 }

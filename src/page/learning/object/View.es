@@ -21,7 +21,7 @@ class View extends PageView {
     constructor() {
         super();
         // 指定模板
-        this.template = 'page-learning-3d';
+        this.template = 'page-learning-object';
     }
 
     enterDocument() {
@@ -33,7 +33,7 @@ class View extends PageView {
 
         let changing = false;
         let pos = null;
-        $('#stage-3d').on('mousedown', (e) => {
+        $('#stage-object').on('mousedown', (e) => {
             changing = true;
             pos = {
                 x: e.clientX,
@@ -41,15 +41,15 @@ class View extends PageView {
             };
             this.fire('dragbegin');
         });
-        $('#stage-3d').on('mouseup', () => {
+        $('#stage-object').on('mouseup', () => {
             changing = false;
             this.fire('dragend');
         });
-        $('#stage-3d').on('mouseout', () => {
+        $('#stage-object').on('mouseout', () => {
             changing = false;
             this.fire('dragend');
         });
-        $('#stage-3d').on('mousemove', (e) => {
+        $('#stage-object').on('mousemove', (e) => {
             if (changing) {
                 this.fire('camerachange', {
                     dx: e.clientX - pos.x,

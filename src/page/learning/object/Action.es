@@ -1,5 +1,5 @@
 /**
- * @file 3d - Action
+ * @file object - Action
  *
  * @author Leo Wang(leowang721@gmail.com)
  */
@@ -13,8 +13,13 @@ import Camera from 'k-webgl/Camera';
 import Light from 'k-webgl/Light';
 import Coordinate from 'k-webgl/helper/Coordinate';
 import Rgba from 'k-webgl/helper/Rgba';
+import Points from 'k-webgl/shape/Points';
+import Lines from 'k-webgl/shape/Lines';
 import Cube from 'k-webgl/shape/Cube';
 import Motion from 'k-webgl/animation/Motion';
+
+import ObjFileParser from 'k-webgl/object/ObjFileParser';
+
 
 import Model from './Model';
 import View from './View';
@@ -43,27 +48,24 @@ class Action extends PageAction {
         super.initBehavior();
 
         let range = {
-            width: document.getElementById('stage-3d').offsetWidth,
-            height: document.getElementById('stage-3d').offsetHeight
+            width: document.getElementById('stage-object').offsetWidth,
+            height: document.getElementById('stage-object').offsetHeight
         };
 
         let scene = new Scene({
             width: range.width,
             height: range.height,
-            depth: 1000,
+            depth: 100,
+            mash: {
+                unitDistance: 1
+            },
             camera: new Camera({
-                position: [10, 10, 50],
+                position: [3, 3, 15],
                 up: [0, 1, 0],
                 looking: [0, 0, 0],
-                near: 9,
-                far: 200,
                 projection: 'perspective',
-                // projectionSettings: {
-                //     fovy: 30,  // 视线角度
-                    // aspect: range.width / range.height,  // 宽高比
-                    // near: 1,
-                    // far: 10
-                // }
+                near: 5,
+                far: 1000
             }),
             light: new Light({
                 color: [1, 1, 1],
@@ -72,35 +74,47 @@ class Action extends PageAction {
             })
         });
 
-        let cube = new Cube({
-            color: [0.7, 0.7, 0.7],
-            length: 10,
-            width: 10,
-            height: 10
+        let aCube = new Cube({
+            length: 2,
+            width: 2,
+            height: 2,
+            position: [3, 1, 0],
+            color: [0.6, 0.6, 1, 1],
+            flag: {
+                light: true
+            }
         });
-        scene.addShapes(cube);
+
+        scene.addShapes(aCube);
 
         let renderer = new Renderer({
-            domId: 'stage-3d'
+            domId: 'stage-object'
         });
-
         renderer.render(scene);
 
-        let scroll360 = new Motion({
-            id: 'scroll360',
-            target: cube
-        });
-        scroll360
-            .begin()
-            .spent(3000).rotate(360, [0, 0, 1])
-            .then().spent(3000).translate(-2, -2, -2).rotate(-360, [0, 1, 0])
-            .then().spent(3000).translate(2, 2, 2)
-            .end();
-        scene.animation.addMotion(scroll360);
+        let parser = new ObjFileParser(require.toUrl('./resource/obj/miku.obj'));
+        let obj = null;
+        parser.parse().then(shapes => {
+            scene.addShapes(shapes);
+            obj = shapes;
+            renderer.repaint();
 
-        this.view.on('play', e => scene.animation.play());
-        let dx = 100 / range.width;
-        let dy = 100 / range.height;
+            let scroll360 = new Motion({
+                id: 'scroll360',
+                target: shapes[0]
+            });
+            scroll360
+                .begin()
+                .then().spent(5000).scale([0.5, 0.5, 0.5]).rotate(-3600, [0, 1, 0])
+                .then().spent(3000).scale([2, 2, 2])
+                .end();
+            scene.animation.addMotion(scroll360);
+        });
+
+        this.view.on('play', e => {
+            scene.animation.play();
+        });
+
         this.view.on('dragbegin', () => {
             renderer.autoRefresh(true);
         });
@@ -115,7 +129,7 @@ class Action extends PageAction {
             let ydeg = dx * 0.1;
             let xdeg = dy * 0.1;
             // 旋转
-            cube.transform.rotateX(xdeg).rotateY(ydeg).apply();
+            scene.getCurrentCamera().transform.rotate(xdeg, [1, 0, 0]).rotate(ydeg, [0, 1, 0]).apply();
         });
     }
 }
@@ -125,7 +139,7 @@ function getRandom() {
 }
 
 function getRandomColor() {
-    return new Rgba(getRandom(), getRandom(), getRandom(), 1);
+    return new Rgba(getRandom(), getRandom(), getRandom(), 1)
 }
 
 function getRandomCoord() {

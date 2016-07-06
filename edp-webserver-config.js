@@ -40,7 +40,7 @@ exports.getLocations = function () {
 
     let fileProcessors = [
         {
-            location: /\.(html|tpl|png|jpg|gif|bmp)($|\?)/,
+            location: /\.(html|tpl|png|jpg|gif|bmp|obj|mtl)($|\?)/,
             handler: [
                 file()
             ]

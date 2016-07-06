@@ -1,5 +1,5 @@
 /**
- * @file 3d - Action
+ * @file matchman - Action
  *
  * @author Leo Wang(leowang721@gmail.com)
  */
@@ -13,8 +13,9 @@ import Camera from 'k-webgl/Camera';
 import Light from 'k-webgl/Light';
 import Coordinate from 'k-webgl/helper/Coordinate';
 import Rgba from 'k-webgl/helper/Rgba';
-import Cube from 'k-webgl/shape/Cube';
 import Motion from 'k-webgl/animation/Motion';
+
+import Person from '../../../matchman/Person';
 
 import Model from './Model';
 import View from './View';
@@ -43,27 +44,24 @@ class Action extends PageAction {
         super.initBehavior();
 
         let range = {
-            width: document.getElementById('stage-3d').offsetWidth,
-            height: document.getElementById('stage-3d').offsetHeight
+            width: document.getElementById('stage-matchman').offsetWidth,
+            height: document.getElementById('stage-matchman').offsetHeight
         };
 
         let scene = new Scene({
             width: range.width,
             height: range.height,
             depth: 1000,
+            mash: {
+                unitDistance: 1
+            },
             camera: new Camera({
-                position: [10, 10, 50],
+                position: [1, 1, 6],
                 up: [0, 1, 0],
                 looking: [0, 0, 0],
-                near: 9,
-                far: 200,
                 projection: 'perspective',
-                // projectionSettings: {
-                //     fovy: 30,  // 视线角度
-                    // aspect: range.width / range.height,  // 宽高比
-                    // near: 1,
-                    // far: 10
-                // }
+                near: 3,
+                far: 100
             }),
             light: new Light({
                 color: [1, 1, 1],
@@ -72,33 +70,39 @@ class Action extends PageAction {
             })
         });
 
-        let cube = new Cube({
-            color: [0.7, 0.7, 0.7],
-            length: 10,
-            width: 10,
-            height: 10
+        let leo = new Person({
+            color: Rgba.BLACK,
+            height: 1
         });
-        scene.addShapes(cube);
+        scene.addShapes(leo.getShapes());
 
         let renderer = new Renderer({
-            domId: 'stage-3d'
+            domId: 'stage-matchman'
         });
 
         renderer.render(scene);
+        //
+        // let scroll360 = new Motion({
+        //     id: 'scroll360',
+        //     target: leo.shapes
+        // });
+        // scroll360
+        //     .begin()
+        //     .spent(3000).rotate(360, [0, 0, 1])
+        //     .then().spent(3000).translate(-2, -2, -2).rotate(-360, [0, 1, 0])
+        //     .then().spent(3000).translate(2, 2, 2)
+        //     .end();
+        // scene.animation.addMotion(scroll360);
 
-        let scroll360 = new Motion({
-            id: 'scroll360',
-            target: cube
-        });
-        scroll360
-            .begin()
-            .spent(3000).rotate(360, [0, 0, 1])
-            .then().spent(3000).translate(-2, -2, -2).rotate(-360, [0, 1, 0])
-            .then().spent(3000).translate(2, 2, 2)
-            .end();
-        scene.animation.addMotion(scroll360);
+        let walkMotions = leo.walk();
+        walkMotions.forEach(m => scene.animation.addMotion(m));
 
+        // scene.animation.on('frame', () => {
+        //     leo.chest.setPosition([leo.chest.position.x, leo.chest.position.y, leo.chest.position.z + 0.01]);
+        // });
+        scene.animation.on('finish', () => {scene.animation.replay()});
         this.view.on('play', e => scene.animation.play());
+        this.view.on('stop', e => scene.animation.stop());
         let dx = 100 / range.width;
         let dy = 100 / range.height;
         this.view.on('dragbegin', () => {
@@ -115,8 +119,10 @@ class Action extends PageAction {
             let ydeg = dx * 0.1;
             let xdeg = dy * 0.1;
             // 旋转
-            cube.transform.rotateX(xdeg).rotateY(ydeg).apply();
+            scene.getCurrentCamera().transform.rotateX(xdeg).rotateY(ydeg).apply();
         });
+
+        scene.animation.play();
     }
 }
 

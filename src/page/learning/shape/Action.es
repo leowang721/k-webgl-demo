@@ -10,7 +10,6 @@ import PageAction from '../../PageAction';
 import Renderer from 'k-webgl/Renderer';
 import Scene from 'k-webgl/Scene';
 import Coordinate from 'k-webgl/helper/Coordinate';
-import Vertex from 'k-webgl/element/Vertex';
 import Rgba from 'k-webgl/helper/Rgba';
 import Points from 'k-webgl/shape/Points';
 import Lines from 'k-webgl/shape/Lines';
@@ -42,51 +41,95 @@ class Action extends PageAction {
      */
     initBehavior() {
         super.initBehavior();
-        let scene = new Scene();
+
+        let range = {
+            width: document.getElementById('shape-stage').offsetWidth,
+            height: document.getElementById('shape-stage').offsetHeight
+        };
+
+
+        function getRandomPos() {
+            return new Coordinate(getRandom() * range.width / 3, getRandom() * range.height / 2, 0)
+        }
+
+        let scene = new Scene({
+            width: range.width,
+            height: range.height,
+            depth: 100
+        });
 
         let renderer = new Renderer({
             domId: 'shape-stage'
         });
+
+        let points = new Points({
+            size: 10
+        });
+        let lines = new Lines({
+            color: Rgba.BLACK
+        });
+        let triangles = new Triangles();
+
+        _.times(100, () => {
+            points.add({
+                color: getRandomColor(),
+                size: Math.random() * 5 + 5,
+                coord: getRandomPos()
+            });
+        });
+
+        scene.addShapes([points, lines, triangles]);
+
+        renderer.render(scene);
 
         this.view.on('draw', (e) => {
             let shape = e.shape;
 
             switch (shape) {
                 case 'point':
-                    scene.add(new Points({
+                    points.add({
                         color: getRandomColor(),
                         size: Math.random() * 100,
-                        points: [getRandomPos()]
-                    }));
+                        coord: getRandomPos()
+                    });
                     break;
                 case 'line':
-                    scene.add(new Lines({
-                        color: getRandomColor(),
-                        lines: {
-                            from: getRandomPos(),
-                            to: getRandomPos()
+                    lines.addVertices([
+                        {
+                            color: getRandomColor(),
+                            coord: getRandomPos(),
+                        },
+                        {
+                            color: getRandomColor(),
+                            coord: getRandomPos(),
                         }
-                    }));
+                    ]);
                     break;
                 case 'triangle':
-                    scene.add(new Triangles({
-                        color: getRandomColor(),
-                        triangles: {
-                            a: getRandomPos(),
-                            b: getRandomPos(),
-                            c: getRandomPos()
-                        }
-                    }));
+                    triangles.addVertices(
+                        [
+                            {
+                                color: getRandomColor(),
+                                coord: getRandomPos()
+                            },
+                            {
+                                color: getRandomColor(),
+                                coord: getRandomPos()
+                            },
+                            {
+                                color: getRandomColor(),
+                                coord: getRandomPos()
+                            }
+                        ]
+                    );
                     break;
                 case 'polygon':
-                    scene.add(new Polygon({
+                    scene.addShapes(new Polygon({
                         color: getRandomColor(),
-                        points: _.times(~~(Math.random() * 10 + 2), () => {
-                            return getRandomPos();
-                        })
+                        vertices: _.times(~~(Math.random() * 3 + 3), () => getRandomPos())
                     }));
             }
-            renderer.render(scene);
+            renderer.repaint();
         });
     }
 }
@@ -95,12 +138,8 @@ function getRandom() {
     return (Math.random() > 0.5 ? 1 : -1) * Math.random();
 }
 
-function getRandomPos() {
-    return new Coordinate(getRandom(), getRandom(), getRandom())
-}
-
 function getRandomColor() {
-    return new Rgba(getRandom(), getRandom(), getRandom(), 1)
+    return new Rgba(Math.random(), Math.random(), Math.random(), 1)
 }
 
 export default Action;

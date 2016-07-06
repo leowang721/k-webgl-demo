@@ -9,10 +9,9 @@ import PageAction from '../../PageAction';
 
 import Renderer from 'k-webgl/Renderer';
 import Scene from 'k-webgl/Scene';
+import Camera from 'k-webgl/Camera';
 import Coordinate from 'k-webgl/helper/Coordinate';
-import Vertex from 'k-webgl/element/Vertex';
 import Points from 'k-webgl/shape/Points';
-import Lines from 'k-webgl/shape/Lines';
 import Rgba from 'k-webgl/helper/Rgba';
 
 import Model from './Model';
@@ -41,7 +40,22 @@ class Action extends PageAction {
     initBehavior() {
         super.initBehavior();
 
-        let scene = new Scene();
+        let range = {
+            width: document.getElementById('point-stage').offsetWidth,
+            height: document.getElementById('point-stage').offsetHeight
+        };
+
+        let scene = new Scene({
+            width: range.width,
+            height: range.height,
+            depth: 100,
+            camera: new Camera({
+                position: [0, 0, 7],
+                near: 7,
+                far: 100
+                // projection: 'perspective'
+            })
+        });
 
         let renderer = new Renderer({
             domId: 'point-stage'
@@ -49,18 +63,35 @@ class Action extends PageAction {
 
         let points = new Points({
             color: new Rgba(Math.random(), Math.random(), Math.random(), 1),
-            size: Math.random() * 100
+            size: 10,
+            vertices: [
+                [0, 0, 0],
+                [-range.width / 4, -range.height / 4, 0],
+                [range.width / 4, range.height / 4, 0],
+                [range.width / 4, -range.height / 4, 0],
+                [-range.width / 4, range.height / 4, 0]
+            ]
         });
-        scene.add(points);
+        scene.addShapes(points);
+
         renderer.render(scene);
 
         this.view.on('click', (e) => {
-            points.addPoints({
+            points.add({
                 coord: e.position,
                 color: new Rgba(Math.random(), Math.random(), Math.random(), 1),
-                size: Math.random() * 100
+                size: Math.random() * 10 + 10
             });
-            renderer.render(scene);
+            renderer.repaint();
+        });
+
+        this.view.on('camerachange', e => {
+            let diff = e.diff;
+            let pos = scene.currentCamera.position;
+            if (pos[0] != -7) {
+                // console.log([pos[0] + diff, pos[1], pos[2]])
+                scene.setCameraPosition([pos[0] + diff, pos[1], pos[2]]);
+            }
         });
     }
 }

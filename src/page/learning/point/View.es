@@ -26,12 +26,27 @@ class View extends PageView {
     enterDocument() {
         $('#point-stage').click((e) => {
             let rect = e.target.getBoundingClientRect();
-            let x = e.clientX - rect.left;
-            let y = e.clientY -rect.top;
+            let x = e.clientX - rect.left - rect.width / 2;
+            let y = -(e.clientY - rect.top - rect.height / 2);
 
             this.fire('click', {
-                position: Coordinate.transformFromScreen({x, y}, rect)
+                position: [x, y, 0]
             });
+        });
+
+        $(window).keydown(e => {
+            switch (e.code) {
+                case 'ArrowUp':
+                    this.fire('camerachange', {
+                        diff: 0.1
+                    });
+                    break;
+                case 'ArrowDown':
+                    this.fire('camerachange', {
+                        diff: -0.1
+                    });
+                    break
+            }
         });
     }
 }

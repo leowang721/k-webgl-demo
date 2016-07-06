@@ -1,0 +1,143 @@
+#  ==========================================================================
+#  Wavefront Material file
+#  Exported by Red-i Productions' "Riptide"
+#  (a free plugin for Cinema 4D PC & Mac, R7.3 or later)
+#  
+#  Red-i Productions
+#  http://skinprops.com
+#  
+#  ==========================================================================
+
+newmtl default_Mat
+illum 2
+Kd 0.800000 0.800000 0.800000
+
+newmtl Chamfers
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd chamfers.jpg
+
+newmtl Barrel1
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd barrel1.jpg
+
+newmtl Barrel2
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd barrel2.jpg
+
+newmtl Muzzle
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd muzzle.jpg
+
+newmtl Body_Top
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd top.jpg
+
+newmtl Body_Bottom1_2
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd bottom1_2.jpg
+
+newmtl Body_Bottom
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd bottom1.jpg
+
+newmtl Screws
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd screws.jpg
+
+newmtl Riffle
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd riffle.jpg
+
+newmtl Magazine_Fake
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd mag_trig.jpg
+
+newmtl Trigger
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd mag_trig.jpg
+
+newmtl Ejector
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd attachment_ejector.jpg
+
+newmtl Attachment
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd attachment_ejector.jpg
+
+newmtl Mag_Release_Right
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd buttons.jpg
+
+newmtl Mag_Release_Left
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd buttons.jpg
+
+newmtl Button3_Left
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd buttons.jpg
+
+newmtl Button_Attachment_Left
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd screws.jpg
+
+newmtl RedLight_Right
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd buttons.jpg
+
+newmtl Cylinder_Right
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd buttons.jpg
+
+newmtl Triangles_Right
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd triangles.jpg
+
+newmtl Button1_Right
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd buttons.jpg
+
+newmtl RedLight_Left
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd buttons.jpg
+
+newmtl Cylinder_Left
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd buttons.jpg
+
+newmtl Triangles_Left
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd triangles.jpg
+
+newmtl Button1_Left
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd buttons.jpg
+
+newmtl Button2_Left
+illum 2
+Kd 0.800000 0.800000 0.800000
+map_Kd buttons.jpg

@@ -13,7 +13,8 @@ let minimatch = require('minimatch');
 let extraPaths = [
     '/dep/k-core/**/*.js',
     '/dep/k-ajax/**/*.js',
-    '/dep/k-webgl/**/*.js'
+    '/dep/k-webgl/**/*.js',
+    '/dep/pmx/**/*.js'
 ];
 
 /* globals home, redirect, content, empty, autocss, file, less, stylus, proxyNoneExists */
