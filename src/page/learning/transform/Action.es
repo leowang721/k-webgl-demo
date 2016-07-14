@@ -13,7 +13,7 @@ import Coordinate from 'k-webgl/helper/Coordinate';
 import TextureCoord from 'k-webgl/helper/TextureCoord';
 import Polygon from 'k-webgl/shape/Polygon';
 import Rgba from 'k-webgl/helper/Rgba';
-import Texture from 'k-webgl/Texture';
+import Texture from 'k-webgl/helper/Texture';
 
 import Model from './Model';
 import View from './View';
